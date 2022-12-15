@@ -1,0 +1,59 @@
+body {
+  background: #ed1e24;
+  margin: 0;
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+.plain-list {
+  list-style: none;
+  margin: 0;
+  padding: 1rem;
+}
+
+.screen {
+  margin: 0 auto;
+  background: #232323;
+  border-style: solid;
+  border-color: #dedede;
+  border-width: 3rem;
+  position: relative;
+  width: 1600px;
+  height: 1400px;
+  max-height: calc(100vh - 4rem);
+  max-width: calc(100% - 4rem);
+  box-sizing: border-box;
+  border-radius: 0 0 0 6rem;
+}
+
+.screen-contents {
+  height: 100%;
+  overflow-y: scroll;
+  border-radius: 0 0 0 3rem;
+  position: relative;
+}
+
+.screen::before {
+  content: " ";
+  position: absolute;
+  left: 2rem;
+  bottom: -2rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  background: #ed1e24;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.screen::after {
+  content: " ";
+  position: absolute;
+  right: 0rem;
+  bottom: -2rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80' width='40' height='40'%3E%3Crect width='100' height='20'%3E%3C/rect%3E%3Crect y='30' width='100' height='20'%3E%3C/rect%3E%3Crect y='60' width='100' height='20'%3E%3C/rect%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
