@@ -1,20 +1,28 @@
 import { useRouter } from 'next/router';
+import Head from 'next/head'
 import styles from '../../styles/pokemon-entry.module.css';
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 export default function Pokemon({ pokemon }) {
   const router = useRouter();
-  const types = pokemon.types.join(', ');
+  const title = `Pokedex: ${pokemon.name}`;
   return (
-    <div className="screen">
-      <div className='screen-contents'>
-        <button onClick={() => router.back()} className={styles.backBtn} aria-label="Go back"></button>
-        <img className={styles.pokeImage} src={pokemon.image} alt={`${pokemon.name} picture`} />
-        <div className={styles.infoContainer}>
-          <h1 className={styles.header}>No. {pokemon.id}: {pokemon.name}</h1>
-          <table className={styles.pokeInfo}>
+    <>
+      <Head>
+        <title>{title}</title>
+      </Head>
+      <button onClick={() => router.back()} className={styles.backBtn} aria-label="Go back"></button>
+      <img className={styles.pokeImage} src={pokemon.image} alt={`${pokemon.name} picture`} />
+      <div className={styles.infoContainer}>
+        <h1 className={styles.header}>No. {pokemon.id}: {pokemon.name}</h1>
+        <table className={styles.pokeInfo}>
+          <tbody>
             <tr>
               <th>Types</th>
-              <td>{types}</td>
+              <td>{pokemon.types}</td>
             </tr>
             <tr>
               <th>Height</th>
@@ -24,11 +32,11 @@ export default function Pokemon({ pokemon }) {
               <th>Weight</th>
               <td>{pokemon.weight}</td>
             </tr>
-          </table>
-          <p className={styles.flavor}>{pokemon.flavorText}</p>
-        </div>
+          </tbody>
+        </table>
+        <p className={styles.flavor}>{pokemon.flavorText}</p>
       </div>
-    </div>
+    </>
   )
 }
 
@@ -57,11 +65,11 @@ export const getStaticProps = async (context) => {
       pokemon: {
         id: pokemon.id,
         image: pokemon.sprites.front_default,
-        name: pokemon.name,
+        name: capitalize(pokemon.name),
         height: pokemon.height,
         weight: pokemon.weight,
         flavorText: species.flavor_text_entries[0].flavor_text,
-        types: pokemon.types.map(({ type }) => type.name)
+        types: pokemon.types.map(({ type }) => type.name).join(', ')
       },
     },
   }

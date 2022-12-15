@@ -1,23 +1,25 @@
 import Link from 'next/link'
+import Head from 'next/head'
 import styles from '../styles/poke-list.module.css';
 
 export default function Home({ pokemons }) {
     return (
-        <div className="screen">
-            <div className='screen-contents'>
-                <ul className={`plain-list ${styles.pokeList}`}>
-                    {pokemons.map((pokemon) => (
-                        <li className={styles.pokemonListItem} key={pokemon.name}>
-                            <Link className={styles.pokemonContainer} as={`/pokemon/${pokemon.name}`} href="/pokemon/[name]">
-                                <p className={styles.pokemonId}>No. {pokemon.id}</p>
-                                <img className={styles.pokemonImage} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`} alt={`${pokemon.name} picture`}></img>
-                                <h2 className={styles.pokemonName}>{pokemon.name}</h2>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </div>
+        <>
+            <Head>
+                <title>Pokedex: Generation 1</title>
+            </Head>
+            <ul className={`plain-list ${styles.pokeList}`}>
+                {pokemons.map((pokemon) => (
+                    <li className={styles.pokemonListItem} key={pokemon.name}>
+                        <Link className={styles.pokemonContainer} as={`/pokemon/${pokemon.name}`} href="/pokemon/[name]">
+                            <p className={styles.pokemonId}>No. {pokemon.id}</p>
+                            <img className={styles.pokemonImage} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`} alt={`${pokemon.name} picture`}></img>
+                            <h2 className={styles.pokemonName}>{pokemon.name}</h2>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+        </>
     )
 }
 
